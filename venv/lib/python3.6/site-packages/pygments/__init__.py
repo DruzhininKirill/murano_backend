@@ -17,9 +17,9 @@
     * it is usable as a command-line tool and as a library
     * ... and it highlights even Brainfuck!
 
-    The `Pygments master branch`_ is installable with ``easy_install Pygments==dev``.
+    The `Pygments main branch`_ is installable with ``easy_install Pygments==dev``.
 
-    .. _Pygments master branch:
+    .. _Pygments main branch:
        https://github.com/pygments/pygments/archive/master.zip#egg=Pygments-dev
 
     :copyright: Copyright 2006-2019 by the Pygments team, see AUTHORS.
