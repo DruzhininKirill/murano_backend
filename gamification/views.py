@@ -19,7 +19,7 @@ from django.utils import timezone
 from rest_framework.decorators import api_view, permission_classes, action
 
 from rest_framework.throttling import UserRateThrottle
-
+from django.core.files.base import ContentFile
 
 class OncePerDayUserThrottle(UserRateThrottle):
     rate = '1/day'
@@ -53,13 +53,20 @@ class UserViewSet(viewsets.ModelViewSet):
         data = request.data
         if 'password' in data:
             data['password'] = make_password(data['password'])
-        # data['password'] = make_password(data['password'])
-        serializer = UserCreateSerializer(request.user, data=request.data, partial=True)
+        # if 'image' in data:
+        #     m = get_user_model()
+        #     m.image = request.FILES['image']
+        #     m.save()
+
+        serializer = UserCreateSerializer(request.user, data=request.data, partial=True, context={"request": request})
         if serializer.is_valid():
             instance = self.get_object()
             serializer.update(instance, serializer.validated_data)
+            response = serializer.to_representation(instance)
+            # serialized_object = UserSerializer('json', [get_user_model(),])
 
-            return Response(request.data, status=status.HTTP_202_ACCEPTED)
+            return Response(response, status=status.HTTP_202_ACCEPTED)
+            # return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -367,10 +374,17 @@ class ProductViewSet(viewsets.ModelViewSet):
         if serializer.is_valid():
             # instance = Product.objects.get(pk=request.data['id'])
             instance = self.get_object()
-            serializer.update(instance, serializer.validated_data)
 
-            # return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
-            return Response("idk how return form data", status=status.HTTP_202_ACCEPTED)
+            serializer.update(instance, serializer.validated_data)
+            print('_+_+_+_+_+_+_+_+_+')
+            response = serializer.to_representation(instance)
+            return Response(response, status=status.HTTP_202_ACCEPTED)
+
+
+            if 'image' not in request.data:
+                return Response(request.data, status=status.HTTP_202_ACCEPTED)
+            else:
+                return Response("idk how return form data", status=status.HTTP_202_ACCEPTED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

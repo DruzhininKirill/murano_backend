@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.translation import ugettext_lazy as _
 from .managers import CustomUserManager
 from django.contrib.auth import get_user_model
+# from django.core.validators import FileExtensionValidator
 
 
 class CustomUser(AbstractUser):
@@ -17,9 +18,7 @@ class CustomUser(AbstractUser):
     share_points = models.CharField(max_length=10, default=0)
     personal_points = models.CharField(max_length=10, default=0)
     is_teamlead = models.BooleanField(default=0)
-
-
-    # image = models.ImageField(upload_to='profile_image', blank=True)
+    image = models.ImageField(upload_to='images/avatars', blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
 

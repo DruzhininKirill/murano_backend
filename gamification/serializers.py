@@ -5,12 +5,11 @@ from .models import Transaction, Category, FeedbackMessage, Product, Order, Orde
 from rest_framework.validators import UniqueTogetherValidator
 
 
-
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ('id', 'first_name', 'last_name', 'email', "share_points", "personal_points", 'profile', 'position','is_staff', 'is_teamlead')
+        fields = ('id', 'first_name', 'last_name', 'email', "share_points", "personal_points", 'profile', 'position',
+                  'is_staff', 'is_teamlead', 'image')
 
         # fields = '__all__'
 
@@ -22,10 +21,17 @@ class UserFIOSerializer(serializers.ModelSerializer):
         # fields = '__all__'
 
 class UserCreateSerializer(serializers.ModelSerializer):
+    # image_url = serializers.SerializerMethodField()
     class Meta:
         model = get_user_model()
-        fields = ('id', 'first_name', 'last_name', 'email', 'password', "share_points", "personal_points", 'profile', 'position','is_staff', 'is_teamlead')
+        fields = ('id', 'first_name', 'last_name', 'email', 'password', "share_points", "personal_points", 'profile',
+                  'position','is_staff', 'is_teamlead', 'image')
         extra_kwargs = {'email': {'validators': [EmailValidator, ]},}
+
+    # def get_image_url(self, user):
+    #     request = self.context.get('request')
+    #     photo_url = user.image.url
+    #     return request.build_absolute_uri(photo_url)
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -62,7 +68,8 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ('id','name', 'description', 'price', 'quantity', 'in_stock', 'image')
+
 
 
 class OrderProductSerializer(serializers.ModelSerializer):
