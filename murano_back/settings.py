@@ -64,7 +64,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'gamification',
     'rest_framework',
-    'django_cleanup',
+    'django_cleanup.apps.CleanupConfig'
 
 
 
