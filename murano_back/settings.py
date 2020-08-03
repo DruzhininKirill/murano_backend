@@ -27,9 +27,10 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'files/static'),
 )
 
+
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # 'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
 ADMIN_MEDIA_PREFIX = '/static/admin/'
@@ -64,7 +65,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'gamification',
     'rest_framework',
-    'django_cleanup.apps.CleanupConfig'
+    'django_cleanup'
 
 
 
@@ -232,5 +233,5 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
 django_heroku.settings(locals())
