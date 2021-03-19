@@ -7,7 +7,7 @@ django-compat==1.0.15
 django-cors-headers==3.2.1
 django-heroku==0.3.1
 django-webpack-loader==0.7.0
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 djangorestframework-jwt==1.11.0
 djangorestframework-simplejwt==4.4.0
 gunicorn==20.0.4
